@@ -1,2 +1,3 @@
-require './tech_test'
-require './main'
+require './lib/controller'
+require './lib/main'
+require './lib/lender'
