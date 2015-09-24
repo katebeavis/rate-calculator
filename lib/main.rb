@@ -40,6 +40,7 @@ class Main
   def principal_amount(total_borrowed)
     total_borrowed / LOAN_LENGTH.round(2)
   end
+
   # find a given line
   def output_rate(data, index)
     data[index]['Rate'].to_f

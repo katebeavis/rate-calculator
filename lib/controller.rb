@@ -10,9 +10,9 @@ class Controller
   end
 
   MINIMUM_LOAN_AMOUNT = 1000
-  MAXIMUM_LOAN_AMOUNT = 15000
+  MAXIMUM_LOAN_AMOUNT = 15_000
   VALID_REQUEST_ERROR_MESSAGE = "Please enter an amount between #{MINIMUM_LOAN_AMOUNT} and #{MAXIMUM_LOAN_AMOUNT}"
-  CORRECT_PARAMETERS_ERROR_MESSAGE = "Please provide us with both the lender details and a loan amount"
+  CORRECT_PARAMETERS_ERROR_MESSAGE = 'Please provide us with both the lender details and a loan amount'
 
   # HERE WILL BE ERROR MESSAGES AND RETURNING OF INFORMATION TO THE COMMAND LINE
 
@@ -61,12 +61,12 @@ test = Controller.new
 # test.read_file
 # test.valid_request
 # test.correct_parameters
-    # puts "Total Repayment:"
+# puts "Total Repayment:"
 
-    # if !@main.valid_request?(@requested_amount)
-    #   puts 'Please enter a valid loan amount'
-    # end
+# if !@main.valid_request?(@requested_amount)
+#   puts 'Please enter a valid loan amount'
+# end
 
-    # if !@main.funds_available?(@requested_amount, @total_available)
-    #   puts 'Insufficient funds available'
-    # end
+# if !@main.funds_available?(@requested_amount, @total_available)
+#   puts 'Insufficient funds available'
+# end
