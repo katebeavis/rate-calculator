@@ -10,6 +10,7 @@ class Info
     data = CSV.read(ARGV[0], headers: true)
     @requested_amount = ARGV[1].to_i
     @available = @main.total_available(data)
+    puts @main.valid_request?(@requested_amount)
     # puts @main.available(data)
     # puts @main.rate(data)
   end
@@ -30,4 +31,3 @@ test.read_file
     # if !@main.funds_available?(@requested_amount, @available)
     #   puts 'Insufficient funds available'
     # end
-    

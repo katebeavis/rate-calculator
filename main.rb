@@ -1,4 +1,7 @@
 class Main
+  MINIMUM_LOAN_AMOUNT = 1000
+  MAXIMUM_LOAN_AMOUNT = 15000
+
   def available(data)
     data['Available'].map(&:to_i)
   end
@@ -16,6 +19,6 @@ class Main
   end
 
   def valid_request?(amount)
-    amount > 0
+    amount >= MINIMUM_LOAN_AMOUNT && amount <= MAXIMUM_LOAN_AMOUNT
   end
 end
