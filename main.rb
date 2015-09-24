@@ -4,16 +4,14 @@ class Main
   end
 
   def rate(data)
-    data.each do |row|
-      puts row[1].to_f
-    end
+    data['Rate'].map(&:to_f)
   end
 
-  # def is_enough(amount, available)
-  #   if amount > available
-  #     puts 'Insufficient Funds'
-  #   else
-  #     puts 'bye'
-  #   end
-  # end
+  def is_enough(amount, available)
+    if amount > available
+      puts 'Insufficient Funds'
+    else
+      puts 'Funds Available'
+    end
+  end
 end
