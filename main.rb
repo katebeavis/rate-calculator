@@ -1,5 +1,9 @@
 class Main
   def available(data)
+    data['Available'].map(&:to_i)
+  end
+
+  def total_available(data)
     data['Available'].map(&:to_i).inject(0, &:+)
   end
 
@@ -7,11 +11,11 @@ class Main
     data['Rate'].map(&:to_f)
   end
 
-  def is_enough(amount, available)
-    if amount > available
-      puts 'Insufficient Funds'
-    else
-      puts 'Funds Available'
-    end
+  def funds_available?(amount, available)
+    amount < available
+  end
+
+  def valid_request?(amount)
+    amount > 0
   end
 end

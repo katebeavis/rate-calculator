@@ -8,17 +8,26 @@ class Info
 
   def read_file
     data = CSV.read(ARGV[0], headers: true)
-    puts @main.available(data)
-    puts @main.rate(data)
-    puts @requested_amount = ARGV[1].to_i
-    puts @available = @main.available(data)
-    # puts "Requested Amount: #{@requested_amount}"
-    # puts "Rate: %"
-    # puts "Monthly Repayment:"
-    # puts "Total Repayment:"
-    puts @main.is_enough(@requested_amount, @available)
+    @requested_amount = ARGV[1].to_i
+    @available = @main.total_available(data)
+    # puts @main.available(data)
+    # puts @main.rate(data)
   end
 end
 
 test = Info.new
 test.read_file
+
+    # puts "Requested Amount: #{@requested_amount}"
+    # puts "Rate: %"
+    # puts "Monthly Repayment:"
+    # puts "Total Repayment:"
+
+    # if !@main.valid_request?(@requested_amount)
+    #   puts 'Please enter a valid loan amount'
+    # end
+
+    # if !@main.funds_available?(@requested_amount, @available)
+    #   puts 'Insufficient funds available'
+    # end
+    
