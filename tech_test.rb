@@ -1,5 +1,5 @@
 require 'csv'
-require './main'
+require_relative 'main'
 
 class Info
   def initialize
@@ -8,6 +8,7 @@ class Info
 
   def read_file
     data = CSV.read(ARGV[0], headers: true)
+    puts data.to_a.inspect
     @requested_amount = ARGV[1].to_f
     @available = @main.available(data)
     @rate = @main.rate(data)
@@ -26,7 +27,7 @@ class Info
 end
 
 test = Info.new
-test.read_file
+# test.read_file
 
     # puts "Total Repayment:"
 

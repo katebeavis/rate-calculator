@@ -1,10 +1,25 @@
 require 'spec_helper'
 
 describe 'Main' do
-  subject { described_class.new }
-  stub_const("ARGV[0]", ['market_file', 1000])
-end
+  let(:main) { Main.new }
+  let(:csv) {CSV.read('market.csv', headers: true)}
+  
+  it 'reads in a csv file' do
+    expect(csv[0]).to eq([["Lender", "Bob"], ["Rate", "0.075"], ["Available", "640"]])
+  end
 
-# it 'should do something' do
-#   expect(subject.total_available(data)).to eq(2330)
-# end
+  it 'calculates the total of money available to borrow' do
+    stub_const("ARGV", [csv, 1000])
+    expect(main.total_available(csv)).to eq(2330)
+  end
+
+  it 'raises an error when an amount less than the minimum loan amount is entered' do
+    stub_const("ARGV", [csv, 100])
+    expect(main.valid_request?(ARGV[1])).to eq(false)
+  end
+
+  it 'raises an error when an amount more than the maximum loan amount is entered' do
+    stub_const("ARGV", [csv, 15050])
+    expect(main.valid_request?(ARGV[1])).to eq(false)
+  end
+end

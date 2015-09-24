@@ -42,17 +42,18 @@ class Main
   end
 
   def monthly_interest(total_borrowed, rate, principal)
-    puts month_one = (total_borrowed * rate) / 12
-    puts month_one_total = (total_borrowed)
+    month_one = (total_borrowed * rate) / 12
+    month_one_total = (total_borrowed)
+    arr = []
     for i in 1..36
       if i == 1
-        puts month_one = (((month_one_total - month_one) * rate) / 12).round(2)
+        arr << month_one = (((month_one_total - month_one) * rate) / 12).round(2)
       else
-    puts month_one = ((month_one_total * rate) / 12).round(2)
+        arr << month_one = ((month_one_total * rate) / 12).round(2)
       end
-    puts month_one_total = (month_one_total - principal).round(2)
-  end
-
+      arr << month_one_total = (month_one_total - principal).round(2)
+    end
+    puts arr.inspect
   end
 
   def calculate_interest
