@@ -52,21 +52,7 @@ class Main
       end
     puts month_one_total = (month_one_total - principal).round(2)
   end
-    # puts month_two_total = (month_one_total - month_one)
-    # puts month_three = (((month_two_total - month_two) * rate) / 12).round(2)
-    # puts month_three_total = (month_two_total - month_two)
-    # puts month_four = (((month_three_total - month_three) * rate) / 12).round(2)
-    # puts month_four_total = (month_three_total - month_three)
-    # puts month_five = (((month_four_total - month_four) * rate) / 12).round(2)
-    # puts month_five_total = (month_four_total - month_four)
-    # puts month_six = (((month_five_total - month_five) * rate) / 12).round(2)
-    # puts month_six_total = (month_five_total - month_five)
-    # puts month_seven = (((month_six_total - month_six) * rate) / 12).round(2)
-    # puts month_seven_total = (month_six_total - month_six)
-    # puts month_eight = (((month_seven_total - month_seven) * rate) / 12).round(2)
-    # puts month_eight_total = (month_seven_total - month_seven)
-    # puts month_nine = (((month_eight_total - month_eight) * rate) / 12).round(2)
-    # puts month_nine_total = (month_eight_total - month_eight)
+
   end
 
   def calculate_interest

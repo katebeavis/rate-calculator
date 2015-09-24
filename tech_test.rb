@@ -22,8 +22,6 @@ class Info
     puts "Requested Amount: #{@requested_amount}"
     puts "Rate: #{@lowest_rate}%"
     puts "Monthly Repayment: #{@monthly_repayment}"
-    # puts @main.available(data)
-    # puts @main.rate(data)
   end
 end
 
