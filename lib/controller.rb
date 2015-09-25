@@ -31,8 +31,9 @@ class Controller
     @total_borrowed = @loan.get_correct_amount(@available, @requested_amount, @lender.lowest_rate(@rate))
     @principal_amount = @loan.principal_amount(@requested_amount)
     @monthly_interest = @loan.monthly_interest(@requested_amount, @lowest_rate, @principal_amount)
+    @monthly_repayment = @loan.monthly_interest_total(@monthly_interest)
     puts "Rate: #{@lowest_rate}%"
-    "Monthly Repayment: #{@monthly_repayment}"
+    puts "Monthly Repayment: #{@monthly_repayment}"
     puts error_messages
   end
 

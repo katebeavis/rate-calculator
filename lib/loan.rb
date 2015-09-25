@@ -14,7 +14,6 @@ class Loan
   end
 
   def get_correct_amount(available, requested_amount, lowest_rate)
-    puts lowest_rate
     requested_amount - available[lowest_rate]
   end
 
@@ -35,6 +34,10 @@ class Loan
       month_one_total = (month_one_total - principal).round(2)
     end
     arr
+  end
+
+  def monthly_interest_total(arr)
+    arr.inject(0, &:+).round(2)
   end
 
   def principal_amount(total_borrowed)

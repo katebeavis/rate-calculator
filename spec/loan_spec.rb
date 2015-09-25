@@ -41,4 +41,18 @@ describe 'Loan' do
     stub_const('ARGV', [csv, 1000])
     expect(loan.monthly_interest(ARGV[1], rate, principal)).to eq([5.72, 5.59, 5.44, 5.28, 5.13, 4.97, 4.82, 4.66, 4.51, 4.35, 4.2, 4.04, 3.89, 3.73, 3.58, 3.42, 3.27, 3.11, 2.96, 2.8, 2.65, 2.49, 2.33, 2.18, 2.02, 1.87, 1.71, 1.56, 1.4, 1.25, 1.09, 0.94, 0.78, 0.63, 0.47, 0.32])
   end
+
+  it 'can calculate the sum of all interest' do
+    stub_const('ARGV', [csv, 1000])
+    arr = (loan.monthly_interest(ARGV[1], rate, principal))
+    expect(loan.monthly_interest_total(arr)).to eq(109.16)
+  end
+
+  # it 'can calculate the total repayment' do
+  # end
+
+  # it 'can calculate the monthly interest repayments' do
+  #   stub_const('ARGV', [csv, 1000])
+  #   expect(loan.monthly_repayment_amount(monthly_interest_total)).to eq()
+  # end
 end
