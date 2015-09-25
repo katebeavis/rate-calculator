@@ -1,20 +1,24 @@
 class Loan
-  INSUFFICIENT_FUNDS_ERRROR_MESSAGE = "Insufficient funds available"
+  INSUFFICIENT_FUNDS_ERROR_MESSAGE = "Insufficient funds available"
   LOAN_LENGTH = 36
 
   def funds_available(total_available)
     amount = ARGV[1].to_i
     if amount >= total_available
-      INSUFFICIENT_FUNDS_ERRROR_MESSAGE
+      INSUFFICIENT_FUNDS_ERROR_MESSAGE
     end
   end
   # find the amount available for the lowest interest rate
-  def find_amount(available, index)
+  def find_amount_matching_rate(available, index)
     available[index]
   end
 
-  def get_correct_amount(available, requested_amount, lowest_rate)
+  def get_remaining_amount(available, requested_amount, lowest_rate)
     requested_amount - available[lowest_rate]
+  end
+
+  def get_total_borrowed(requested_amount, get_remaining_amount)
+    requested_amount - get_remaining_amount
   end
 
   def first_month(total_borrowed, rate)

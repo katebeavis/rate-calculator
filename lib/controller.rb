@@ -15,36 +15,20 @@ class Controller
   VALID_REQUEST_ERROR_MESSAGE = "Please enter an amount between #{MINIMUM_LOAN_AMOUNT} and #{MAXIMUM_LOAN_AMOUNT}"
   CORRECT_PARAMETERS_ERROR_MESSAGE = 'Please provide us with both the lender details and a loan amount'
 
-  # HERE WILL BE ERROR MESSAGES AND RETURNING OF INFORMATION TO THE COMMAND LINE
-
-  def read_file
-    @requested_amount = ARGV[1].to_i
+  def calculate_quote
+    @amount_lent = get_total_borrowed
     if error_messages
       puts error_messages
     else
-    @available = @lender.available(@lender.import_data)
-    @loan.funds_available(@lender.total_available(@csv))
-    @rate = @lender.rate(@csv)
-    @lowest_rate_index = @lender.lowest_rate(@rate)
-    @total_available = @lender.total_available(@csv)
-    # @lowest_rate_index = @main.lowest_rate(@rate)
-    @find_amount = @loan.find_amount(@available, @lender.lowest_rate(@rate))
-    @lowest_rate = @loan.output_rate(@csv, @lowest_rate_index)
-    @total_borrowed = @loan.get_correct_amount(@available, @requested_amount, @lender.lowest_rate(@rate))
-    @principal_amount = @loan.principal_amount(@requested_amount)
-    @monthly_interest = @loan.monthly_interest(@requested_amount, @lowest_rate, @principal_amount)
-    @monthly_interest_total = @loan.monthly_interest_total(@monthly_interest)
-    @total_repayment = @loan.total_repayment(@requested_amount, @monthly_interest_total)
-    @monthly_repayment = @loan.monthly_repayment_amount(@total_repayment)
     print_messages
     end
   end
 
   def print_messages
-    puts "Requested Amount: #{@requested_amount}"
-    puts "Rate: #{@lowest_rate}%"
-    puts "Monthly Repayment: #{@monthly_repayment}"
-    puts "Total Repayment: #{@total_repayment}"
+    puts "Requested Amount: #{@amount_lent}"
+    puts "Rate: #{lowest_rate}%"
+    puts "Monthly Repayment: #{monthly_repayment}"
+    puts "Total Repayment: #{total_repayment}"
   end
 
   def error_messages
@@ -63,9 +47,55 @@ class Controller
   def correct_parameters
     ARGV.count != 2 ? false : true
   end
+
+  def available
+    @lender.available(@csv)
+  end
+
+  def rate
+    @lender.rate(@csv)
+  end
+
+  def lowest_rate
+    @loan.output_rate(@csv, lowest_rate_index)
+  end
+
+  def lowest_rate_index
+    @lender.lowest_rate(rate)
+  end
+
+  def find_amount_matching_rate
+    @loan.find_amount_matching_rate(available, @lender.lowest_rate(rate))
+  end
+
+  def get_total_borrowed
+    @loan.get_total_borrowed(ARGV[1].to_i, get_remaining_amount)
+  end
+
+  def get_remaining_amount
+    @loan.get_remaining_amount(available, ARGV[1].to_i, lowest_rate_index)
+  end
+
+  def principal_amount
+    @loan.principal_amount(@amount_lent)
+  end
+
+  def monthly_interest
+    @loan.monthly_interest(@amount_lent, lowest_rate, principal_amount)
+  end
+
+  def monthly_interest_total
+    @loan.monthly_interest_total(monthly_interest)
+  end
+
+  def monthly_repayment
+    @loan.monthly_repayment_amount(total_repayment)
+  end
+
+  def total_repayment
+    @loan.total_repayment(@amount_lent, monthly_interest_total)
+  end
 end
 
 test = Controller.new
-# test.read_file
-# test.valid_request
-# test.correct_parameters
+# test.calculate_quote

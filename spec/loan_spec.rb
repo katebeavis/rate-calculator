@@ -13,18 +13,18 @@ describe 'Loan' do
     expect(loan.funds_available(500)).to eq("Insufficient funds available")
   end
 
-#should use mocked data to show more cleary how the tests are working
-
   it 'can find the lowest rate and return the available amount' do
     stub_const('ARGV', [csv, 1000])
     index = lender.lowest_rate((lender.rate(csv)))
-    expect(loan.find_amount(available, index)).to eq(480)
+    expect(loan.find_amount_matching_rate(available, index)).to eq(480)
   end
 
-  it 'calculates the total amount borrowed' do
+  it 'calculates the total amount borrowed, based on the rates used' do
     stub_const('ARGV', [csv, 1000])
     lowest_rate = lender.lowest_rate((lender.rate(csv)))
-    expect(loan.get_correct_amount(available, ARGV[1], lowest_rate)).to eq(520)
+    get_remaining_amount = loan.get_remaining_amount(available, ARGV[1], lowest_rate)
+    get_remaining_amount
+    expect(loan.get_total_borrowed(ARGV[1], get_remaining_amount)).to eq(480)
   end
 
   it 'can calculate the principal amount' do
@@ -47,8 +47,6 @@ describe 'Loan' do
     arr = (loan.monthly_interest(ARGV[1], rate, principal))
     expect(loan.monthly_interest_total(arr)).to eq(109.16)
   end
-
-#calculations are based on what has been requested not what has actually been borrowed
 
   it 'can calculate the total repayment' do
     stub_const('ARGV', [csv, 1000])
