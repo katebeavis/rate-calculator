@@ -20,4 +20,3 @@ $ rspec
 Points for improvement
 - Doesn't calculate quotes from multiple lenders - will only find the lowest rate and provide a quote based on that lender. For that reason, if you enter a value more than the amount being offered by the lender with the lowest interest rate, you will only be offered the maximum amount that they are offering.
 - Need to reduce dependencies.
-- Amount can be requested in less/more than £100 increments.
