@@ -8,10 +8,14 @@ class Lender
   end
 
   def total_available(data)
-    data['Available'].map(&:to_i).inject(0, &:+)
+    total_available = data['Available'].map(&:to_i).inject(0, &:+)
   end
 
   def rate(data)
     data['Rate'].map(&:to_f)
+  end
+
+  def lowest_rate(rate)
+    rate.index(rate.min)
   end
 end

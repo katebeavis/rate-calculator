@@ -19,4 +19,9 @@ describe 'Lender' do
   it 'returns the total sum of the money available to the borrower' do
     expect(lender.total_available(csv)).to eq(2330)
   end
+
+  it 'returns the lowest interest rate (via it\'s index)' do
+    rates = [[8], [4], [7], [6]]
+    expect(lender.lowest_rate((rates))).to eq(1)
+  end
 end

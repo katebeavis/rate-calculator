@@ -1,18 +1,21 @@
-class Main
+class Loan
+  INSUFFICIENT_FUNDS_ERRROR_MESSAGE = "Insufficient funds available"
   LOAN_LENGTH = 36
 
-  # find the index of the lowest interest rate
-  def lowest_rate(rate)
-    lowest_rate_index = rate.index(rate.min)
+  def funds_available(total_available)
+    amount = ARGV[1].to_i
+    if amount >= total_available
+      INSUFFICIENT_FUNDS_ERRROR_MESSAGE
+    end
   end
-
   # find the amount available for the lowest interest rate
   def find_amount(available, index)
     available[index]
   end
 
-  def get_correct_amount(available, requested_amount, lowest_rate_index)
-    requested_amount - available[lowest_rate_index]
+  def get_correct_amount(available, requested_amount, lowest_rate)
+    puts lowest_rate
+    requested_amount - available[lowest_rate]
   end
 
   def first_month(total_borrowed, rate)
@@ -29,16 +32,13 @@ class Main
       else
         arr << month_one = ((month_one_total * rate) / 12).round(2)
       end
-      arr << month_one_total = (month_one_total - principal).round(2)
+      month_one_total = (month_one_total - principal).round(2)
     end
-    puts arr.inspect
-  end
-
-  def calculate_interest
+    arr
   end
 
   def principal_amount(total_borrowed)
-    total_borrowed / LOAN_LENGTH.round(2)
+    (total_borrowed / LOAN_LENGTH).round(2)
   end
 
   # find a given line

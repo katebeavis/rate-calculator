@@ -1,3 +1,3 @@
 require './lib/controller'
-require './lib/main'
+require './lib/loan'
 require './lib/lender'

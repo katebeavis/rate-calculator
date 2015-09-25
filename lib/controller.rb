@@ -1,12 +1,13 @@
 require 'csv'
-require_relative 'main'
+require_relative 'loan'
 require_relative 'lender'
 
 class Controller
   def initialize
-    @main = Main.new
+    @loan = Loan.new
     @lender = Lender.new
     @requested_amount = 0
+    @csv = @lender.import_data
   end
 
   MINIMUM_LOAN_AMOUNT = 1000
@@ -19,19 +20,19 @@ class Controller
   def read_file
     @requested_amount = ARGV[1].to_i
     @available = @lender.available(@lender.import_data)
-    # @rate = @main.rate(data)
-    # puts @total_available = @main.total_available(data)
+    @loan.funds_available(@lender.total_available(@csv))
+    puts "Requested Amount: #{@requested_amount}"
+    @rate = @lender.rate(@csv)
+    @lowest_rate_index = @lender.lowest_rate(@rate)
+    @total_available = @lender.total_available(@csv)
     # @lowest_rate_index = @main.lowest_rate(@rate)
-    # @find_amount = @main.find_amount(@available, @lowest_rate_index)
-    # @lowest_rate = @main.output_rate(data, @lowest_rate_index)
-    # @total_borrowed = @main.get_correct_amount(@available, @requested_amount, @lowest_rate_index)
-    # @principal_amount = @main.principal_amount(@requested_amount)
-    # @monthly_interest = @main.monthly_interest(@requested_amount, @lowest_rate, @principal_amount)
-    # puts "Requested Amount: #{@requested_amount}"
-    # puts "Rate: #{@lowest_rate}%"
-    # puts "Monthly Repayment: #{@monthly_repayment}"
-    # puts valid_request
-    # puts correct_parameters
+    @find_amount = @loan.find_amount(@available, @lender.lowest_rate(@rate))
+    @lowest_rate = @loan.output_rate(@csv, @lowest_rate_index)
+    @total_borrowed = @loan.get_correct_amount(@available, @requested_amount, @lender.lowest_rate(@rate))
+    @principal_amount = @loan.principal_amount(@requested_amount)
+    @monthly_interest = @loan.monthly_interest(@requested_amount, @lowest_rate, @principal_amount)
+    puts "Rate: #{@lowest_rate}%"
+    "Monthly Repayment: #{@monthly_repayment}"
     puts error_messages
   end
 
@@ -51,22 +52,10 @@ class Controller
   def correct_parameters
     ARGV.count != 2 ? false : true
   end
-
-  def funds_available?(amount, available)
-    amount < available
-  end
 end
 
 test = Controller.new
-# test.read_file
-# test.valid_request
-# test.correct_parameters
+test.read_file
+test.valid_request
+test.correct_parameters
 # puts "Total Repayment:"
-
-# if !@main.valid_request?(@requested_amount)
-#   puts 'Please enter a valid loan amount'
-# end
-
-# if !@main.funds_available?(@requested_amount, @total_available)
-#   puts 'Insufficient funds available'
-# end
