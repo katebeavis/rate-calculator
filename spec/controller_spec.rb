@@ -54,4 +54,24 @@ describe 'Controller' do
     stub_const('ARGV', [csv, 1000])
     expect(controller.error_messages).not_to eq(Controller::CORRECT_PARAMETERS_ERROR_MESSAGE)
   end
+
+  it 'raises an error when an incorrect increment is provided' do
+    stub_const('ARGV', [csv, 1009])
+    expect(controller.increment).to eq(false)
+  end
+
+  it 'raises a message when an incorrect increment is provided' do
+    stub_const('ARGV', [csv, 1009])
+    expect(controller.error_messages).to eq(Controller::INVALID_AMOUNT_ERROR_MESSAGE)
+  end
+
+  it 'doesn\'t raises an error when acorrect increment is provided' do
+    stub_const('ARGV', [csv, 1000])
+    expect(controller.increment).to eq(true)
+  end
+
+  it 'doesn\'t raises an message when acorrect increment is provided' do
+    stub_const('ARGV', [csv, 1000])
+    expect(controller.error_messages).not_to eq(Controller::INVALID_AMOUNT_ERROR_MESSAGE)
+  end
 end

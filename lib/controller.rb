@@ -7,20 +7,21 @@ class Controller
     @loan = Loan.new
     @lender = Lender.new
     @requested_amount = 0
-    # @csv = @lender.import_data
+    @csv = @lender.import_data
   end
 
   MINIMUM_LOAN_AMOUNT = 1000
   MAXIMUM_LOAN_AMOUNT = 15_000
   VALID_REQUEST_ERROR_MESSAGE = "Please enter an amount between #{MINIMUM_LOAN_AMOUNT} and #{MAXIMUM_LOAN_AMOUNT}"
   CORRECT_PARAMETERS_ERROR_MESSAGE = 'Please provide us with both the lender details and a loan amount'
+  INVALID_AMOUNT_ERROR_MESSAGE = 'Please enter your request in increments of 100'
 
   def calculate_quote
     @amount_lent = get_total_borrowed
     if error_messages
       puts error_messages
     else
-    print_messages
+      print_messages
     end
   end
 
@@ -36,6 +37,8 @@ class Controller
       CORRECT_PARAMETERS_ERROR_MESSAGE
     elsif valid_request == false
       VALID_REQUEST_ERROR_MESSAGE
+    elsif increment == false
+      INVALID_AMOUNT_ERROR_MESSAGE   
     end
   end
 
@@ -46,6 +49,10 @@ class Controller
 
   def correct_parameters
     ARGV.count != 2 ? false : true
+  end
+
+  def increment
+    ARGV[1].to_i % 100 == 0 ? true : false
   end
 
   def available
@@ -98,4 +105,4 @@ class Controller
 end
 
 test = Controller.new
-# test.calculate_quote
+test.calculate_quote
