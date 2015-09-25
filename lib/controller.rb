@@ -7,7 +7,7 @@ class Controller
     @loan = Loan.new
     @lender = Lender.new
     @requested_amount = 0
-    @csv = @lender.import_data
+    # @csv = @lender.import_data
   end
 
   MINIMUM_LOAN_AMOUNT = 1000
@@ -19,9 +19,11 @@ class Controller
 
   def read_file
     @requested_amount = ARGV[1].to_i
+    if error_messages
+      puts error_messages
+    else
     @available = @lender.available(@lender.import_data)
     @loan.funds_available(@lender.total_available(@csv))
-    puts "Requested Amount: #{@requested_amount}"
     @rate = @lender.rate(@csv)
     @lowest_rate_index = @lender.lowest_rate(@rate)
     @total_available = @lender.total_available(@csv)
@@ -31,10 +33,18 @@ class Controller
     @total_borrowed = @loan.get_correct_amount(@available, @requested_amount, @lender.lowest_rate(@rate))
     @principal_amount = @loan.principal_amount(@requested_amount)
     @monthly_interest = @loan.monthly_interest(@requested_amount, @lowest_rate, @principal_amount)
-    @monthly_repayment = @loan.monthly_interest_total(@monthly_interest)
+    @monthly_interest_total = @loan.monthly_interest_total(@monthly_interest)
+    @total_repayment = @loan.total_repayment(@requested_amount, @monthly_interest_total)
+    @monthly_repayment = @loan.monthly_repayment_amount(@total_repayment)
+    print_messages
+    end
+  end
+
+  def print_messages
+    puts "Requested Amount: #{@requested_amount}"
     puts "Rate: #{@lowest_rate}%"
     puts "Monthly Repayment: #{@monthly_repayment}"
-    puts error_messages
+    puts "Total Repayment: #{@total_repayment}"
   end
 
   def error_messages
@@ -56,7 +66,6 @@ class Controller
 end
 
 test = Controller.new
-test.read_file
-test.valid_request
-test.correct_parameters
-# puts "Total Repayment:"
+# test.read_file
+# test.valid_request
+# test.correct_parameters

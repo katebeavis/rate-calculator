@@ -40,6 +40,14 @@ class Loan
     arr.inject(0, &:+).round(2)
   end
 
+  def total_repayment(total_borrowed, monthly_interest_total)
+    total_borrowed + monthly_interest_total
+  end
+
+  def monthly_repayment_amount(total_repayment)
+    (total_repayment / LOAN_LENGTH).round(2)
+  end
+
   def principal_amount(total_borrowed)
     (total_borrowed / LOAN_LENGTH).round(2)
   end

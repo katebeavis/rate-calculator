@@ -48,11 +48,17 @@ describe 'Loan' do
     expect(loan.monthly_interest_total(arr)).to eq(109.16)
   end
 
-  # it 'can calculate the total repayment' do
-  # end
+#calculations are based on what has been requested not what has actually been borrowed
 
-  # it 'can calculate the monthly interest repayments' do
-  #   stub_const('ARGV', [csv, 1000])
-  #   expect(loan.monthly_repayment_amount(monthly_interest_total)).to eq()
-  # end
+  it 'can calculate the total repayment' do
+    stub_const('ARGV', [csv, 1000])
+    monthly_interest_total = 109.16
+    expect(loan.total_repayment(ARGV[1], monthly_interest_total)).to eq(1109.16)
+  end
+
+  it 'can calculate the monthly interest repayments' do
+    stub_const('ARGV', [csv, 1000])
+    total_repayment = 1109.16
+    expect(loan.monthly_repayment_amount(total_repayment)).to eq(30.81)
+  end
 end
