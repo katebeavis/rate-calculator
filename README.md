@@ -1,4 +1,4 @@
-# rate-calculator
+# rate calculator
 
 A command line rate calculation system allowing prospective borrowers to obtain a quote from a pool of lenders for 36 month loans.
 
